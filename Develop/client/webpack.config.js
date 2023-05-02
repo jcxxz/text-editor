@@ -8,22 +8,70 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
-    mode: 'development',
+    mode : 'development',
     entry: {
-      main: './src/js/index.js',
-      install: './src/js/install.js'
+    main: './src/js/index.js',
+    install: './src/js/install.js',
     },
     output: {
-      filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      filename: '[name].bundle.js',
     },
+
+
+  //start of plugins for PWA
     plugins: [
-      
+      new HtmlWebpackPlugin({
+        title: 'JATE',
+        template: './index.html',
+        filename: 'index.html',
+        favicon: './src/images/logo.png',
+      }),
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js',
+      }),
+
+      //manifest file for PWA
+      new WebpackPwaManifest({
+        name: 'JATE',
+        inject: true,
+        fingerprints: false, 
+        short_name: 'JATE',
+        description: 'Help you keep track of your daily tasks',
+        background_color: '#01579b',
+        theme_color: '#ffffff',
+        start_url: '/',
+        publicPath: '/',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes : [96, 128, 192, 256, 384, 512],
+            destination: path.join('icons'),
+          },
+    ],
+ 
+      }),
     ],
 
     module: {
       rules: [
-        
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.m?js$/i,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-transform-runtime','@babel/plugin-proposal-class-properties', '@babel/plugin-proposal-object-rest-spread'],
+    
+            },
+          },
+        },
       ],
     },
   };
