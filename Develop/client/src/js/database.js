@@ -1,42 +1,45 @@
 import { openDB } from 'idb';
 
-const initdb = async () =>
-  openDB('jate', 1, {
-    upgrade(db) {
-      if (db.objectStoreNames.contains('jate')) {
-        console.log('jate database already exists');
+const dbName = 'jate';
+const dbVersion = 1;
+const dbObjectStoreName = 'jate';
+
+const initializeDatabase = async () => {
+  const db = await openDB(dbName, dbVersion, {
+    upgrade(database) {
+      if (database.objectStoreNames.contains(dbObjectStoreName)) {
+        console.log(`${dbObjectStoreName} database already exists`);
         return;
       }
-      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
-      console.log('jate database created');
+      database.createObjectStore(dbObjectStoreName, { keyPath: 'id', autoIncrement: true });
+      console.log(`${dbObjectStoreName} database created`);
     },
   });
+  return db;
+};
 
-// TODO: Add logic to a method that accepts some content and adds it to the database
-export const putDb = async (content) => {
-  console.log('ADD to the database');
-  const jateDb = await openDB('jate', 1);
-  const tx = jateDb.transaction('jate', 'readwrite');
-  const store = tx.objectStore('jate');
-  const request = store.add(content);
+const addToDatabase = async (content) => {
+  console.log('Adding to the database');
+  const db = await initializeDatabase();
+  const transaction = db.transaction(dbObjectStoreName, 'readwrite');
+  const objectStore = transaction.objectStore(dbObjectStoreName);
+  const request = objectStore.add(content);
   const result = await request;
-  console.log('result.value', result);
+  console.log('Result:', result);
   return result;
-}
+};
 
-
-
-// TODO: Add logic for a method that gets all the content from the database
-export const getDb = async () => {
-  console.log('GET from the database');
-  const jateDb = await openDB('jate', 1);
-  const tx = jateDb.transaction('jate', 'readonly');
-  const store = tx.objectStore('jate');
-  const request = store.getAll();
+const getAllFromDatabase = async () => {
+  console.log('Getting all from the database');
+  const db = await initializeDatabase();
+  const transaction = db.transaction(dbObjectStoreName, 'readonly');
+  const objectStore = transaction.objectStore(dbObjectStoreName);
+  const request = objectStore.getAll();
   const result = await request;
-  console.log('result.value', result);
+  console.log('Result:', result);
   return result;
-}
-console.error('getDb not implemented');
+};
 
-initdb();
+initializeDatabase();
+
+export { addToDatabase, getAllFromDatabase };
