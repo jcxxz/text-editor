@@ -6,7 +6,7 @@ Your task is to build a text editor that runs in the browser. The app will be a 
 
 To build this text editor, you will start with an existing application and implement methods for getting and storing data to an IndexedDB database. You will use a package called `idb`, which is a lightweight wrapper around the IndexedDB API. It features a number of methods that are useful for storing and retrieving data, and is used by companies like Google and Mozilla.
 
-You will deploy this full-stack application to Heroku using the [Heroku Deployment Guide on The Full-Stack Blog](https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide).
+- On top of this, I did finish my code and I ran it on my local system, but for some reason I couldn't get this warning off my system and due to this I couldn't get the heroku to deploy the final product. but I will provide the link to the heroku deployment and the link to the repository.
 
 ## User Story
 
@@ -48,9 +48,14 @@ THEN I should have proper build scripts for a webpack application
 
 ## Mock-Up
 
-- Bellow I will show a screenshot of the finished prodoct
+- Below I will show a screenshot of the finished prodoct
 
 ![Screenshot (64)](https://user-images.githubusercontent.com/117127694/236654706-c42ca6d2-8a79-478b-be33-a81699d0978e.png)
+
+- Below I have pasted both the heroku link and the link to the repo
+
+- https://github.com/jcxxz/text-editor
+- https://text-editor-m19.herokuapp.com/
 
 
 ## Review
