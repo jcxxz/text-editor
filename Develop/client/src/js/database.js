@@ -18,7 +18,7 @@ const initializeDatabase = async () => {
   return db;
 };
 
-const addToDatabase = async (content) => {
+const getDb = async (content) => {
   console.log('Adding to the database');
   const db = await initializeDatabase();
   const transaction = db.transaction(dbObjectStoreName, 'readwrite');
@@ -29,7 +29,7 @@ const addToDatabase = async (content) => {
   return result;
 };
 
-const getAllFromDatabase = async () => {
+const putDb = async () => {
   console.log('Getting all from the database');
   const db = await initializeDatabase();
   const transaction = db.transaction(dbObjectStoreName, 'readonly');
@@ -42,4 +42,4 @@ const getAllFromDatabase = async () => {
 
 initializeDatabase();
 
-export { addToDatabase, getAllFromDatabase };
+export { getDb, putDb };
