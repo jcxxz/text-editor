@@ -8,6 +8,9 @@ To build this text editor, you will start with an existing application and imple
 
 - On top of this, I did finish my code and I ran it on my local system, but for some reason I couldn't get this warning off my system and due to this I couldn't get the heroku to deploy the final product. but I will provide the link to the heroku deployment and the link to the repository.
 
+-On this homework I had trouble getting it to display and deploy to heroku but the page itself works and if you run "npm run start" or "npm start" from the server side it will display the page on local host 3001
+
+
 ## User Story
 
 ```md
